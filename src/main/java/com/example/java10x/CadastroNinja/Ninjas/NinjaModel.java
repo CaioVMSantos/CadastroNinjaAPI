@@ -1,4 +1,5 @@
-package com.example.java10x.CadastroNinja;
+package com.example.java10x.CadastroNinja.Ninjas;
+import com.example.java10x.CadastroNinja.Missoes.MissaoModel;
 import jakarta.persistence.*;
 
 //JPA - Java Persisitence API
@@ -10,9 +11,17 @@ public class NinjaModel {
     @Id //O próximo atributo que estiver em baixo dele será o id.
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Passar uma estratégia de como ele irá passar os valores.
     private Long id;
+
     private String nome;
+
     private String email;
+
     private int idade;
+
+    // @ManyToOne - Muitos ninjas terão uma missão.
+    @ManyToOne
+    @JoinColumn(name = "missoes_id")
+    private MissaoModel missao;
 
     public NinjaModel() {
     }
