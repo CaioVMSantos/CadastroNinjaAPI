@@ -1,11 +1,17 @@
 package com.example.java10x.CadastroNinja.Ninjas;
 import com.example.java10x.CadastroNinja.Missoes.MissaoModel;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 //JPA - Java Persisitence API
 
 @Entity //Transformando toda a minha classe em uma entidade.
 @Table(name = "tb_cadastro") //Gerando a tabela.
+@NoArgsConstructor //Construtor sem argumento automático.
+@AllArgsConstructor //Construtor com todos os argumentos automáticos, mesmo se eu adicionar mais atributos.
+@Data //Criando todos os Getters e Setters.
 public class NinjaModel {
 
     @Id //O próximo atributo que estiver em baixo dele será o id.
@@ -23,36 +29,4 @@ public class NinjaModel {
     @JoinColumn(name = "missoes_id")
     private MissaoModel missao;
 
-    public NinjaModel() {
-    }
-
-    public NinjaModel(String nome, String email, int idade) {
-        this.nome = nome;
-        this.email = email;
-        this.idade = idade;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getIdade() {
-        return idade;
-    }
-
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
 }
