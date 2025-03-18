@@ -23,6 +23,9 @@ public class NinjaModel {
     @Column(unique = true) //Dizendo que essa coluna é única, não se repete.
     private String email;
 
+    @Column(name = "imgUrl")
+    private String imgUrl;
+
     private int idade;
 
     // @ManyToOne - Muitos ninjas terão uma missão.
