@@ -28,7 +28,7 @@ public class NinjaController {
 
     //Adicionar Ninja (CREATE)
     @PostMapping("/criar")
-    public NinjaModel criarNinja(@RequestBody NinjaModel ninja){ //@RequestBody - O usuário tem que mandar um JSON, pra depois ocorrer a serialização inversa.
+    public NinjaDTO criarNinja(@RequestBody NinjaDTO ninja){ //@RequestBody - O usuário tem que mandar um JSON, pra depois ocorrer a serialização inversa.
         return ninjaService.criarNinja(ninja);
     }
 
