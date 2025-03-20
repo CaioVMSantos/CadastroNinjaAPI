@@ -13,19 +13,7 @@ public class NinjaController {
     public NinjaController(NinjaService ninjaService) {
         this.ninjaService = ninjaService;
     }
-
-    //Mostrar
-    @GetMapping("/boasvindas")
-    public String boasVindas(){
-        return "Essa é a minha primeira mensagem nessa rota!";
-    }
-
     //Criando CRUD
-    //Adicionar Ninja (CREATE)
-    @PostMapping("/criar")
-    public String criarNinja(){
-        return "Ninja Criado!";
-    }
     //Procurar um ninja por ID (READ)
     @GetMapping("/listar/{id}")
     public NinjaModel listarNinjasPorId(@PathVariable Long id){ //@PathVariable para o usuário colocar o id na própria url.
@@ -36,6 +24,12 @@ public class NinjaController {
     @GetMapping("/listar")
     public List<NinjaModel> listarNinjas(){
         return ninjaService.listarNinjas();
+    }
+
+    //Adicionar Ninja (CREATE)
+    @PostMapping("/criar")
+    public NinjaModel criarNinja(@RequestBody NinjaModel ninja){ //@RequestBody - O usuário tem que mandar um JSON, pra depois ocorrer a serialização inversa.
+        return ninjaService.criarNinja(ninja);
     }
 
     //Alterar dados dos ninjas (UPDATE)
