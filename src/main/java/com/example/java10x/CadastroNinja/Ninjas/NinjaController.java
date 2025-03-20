@@ -16,7 +16,7 @@ public class NinjaController {
     //Criando CRUD
     //Procurar um ninja por ID (READ)
     @GetMapping("/listar/{id}")
-    public NinjaModel listarNinjasPorId(@PathVariable Long id){ //@PathVariable para o usuário colocar o id na própria url.
+    public NinjaModel listarNinjasPorId(@PathVariable Long id){ //@PathVariable O que o usuários colocar na url, entrará no metodo.
         return ninjaService.listarNinjasId(id);
     }
 
@@ -39,8 +39,8 @@ public class NinjaController {
     }
 
     //Deletar ninjas (DELETE)
-    @DeleteMapping("/deletarId")
-    public String deletarNinjaPorId(){
-        return "Ninja deletado!";
+    @DeleteMapping("/deletar/{id}")
+    public void deletarNinjaPorId(@PathVariable Long id){
+        ninjaService.deletarNinjaId(id);
     }
 }

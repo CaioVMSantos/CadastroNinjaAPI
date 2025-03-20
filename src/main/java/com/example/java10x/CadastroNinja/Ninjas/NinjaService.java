@@ -15,19 +15,27 @@ public class NinjaService {
     }
 
     //Listar todos os meus ninjas
-    public List<NinjaModel> listarNinjas() {
-        return ninjaRepository.findAll(); //procurando tudo o que tem no banco (INSERT)
-    }
-
-    //Listar todos os meus ninjas
     public NinjaModel listarNinjasId(Long id) {
         Optional<NinjaModel> ninjaPorId = ninjaRepository.findById(id); // Usando Optional, pois o ninja pode ou não existir.
         return ninjaPorId.orElse(null);
     }
 
+    //Listar todos os meus ninjas
+    public List<NinjaModel> listarNinjas() {
+        return ninjaRepository.findAll(); //procurando tudo o que tem no banco (INSERT)
+    }
+
     //Criar um novo ninja
     public NinjaModel criarNinja(NinjaModel ninja){
         return ninjaRepository.save(ninja);
+    }
+
+    //Alterar Id
+    //public NinjaModel alterarNinja(Long id, )
+
+    //Deletar um ninja por ID - Tem que ser um metodo void.
+    public void deletarNinjaId(Long id){
+        ninjaRepository.deleteById(id);
     }
 
 
