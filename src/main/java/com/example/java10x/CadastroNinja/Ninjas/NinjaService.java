@@ -31,7 +31,13 @@ public class NinjaService {
     }
 
     //Alterar Id
-    //public NinjaModel alterarNinja(Long id, )
+    public NinjaModel alterarNinja(Long id, NinjaModel novoNinja){
+        if(ninjaRepository.existsById(id)){
+            novoNinja.setId(id);
+            return ninjaRepository.save(novoNinja);
+        }
+        return null;
+    }
 
     //Deletar um ninja por ID - Tem que ser um metodo void.
     public void deletarNinjaId(Long id){

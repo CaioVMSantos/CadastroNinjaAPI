@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 //JPA - Java Persisitence API
 
@@ -33,4 +34,7 @@ public class NinjaModel {
     @JoinColumn(name = "missoes_id")
     private MissaoModel missao;
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
