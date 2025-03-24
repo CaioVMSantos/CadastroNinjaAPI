@@ -1,5 +1,8 @@
 package com.example.java10x.CadastroNinja.Ninjas;
 
+import org.springframework.data.repository.support.Repositories;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,34 +16,55 @@ public class NinjaController {
     public NinjaController(NinjaService ninjaService) {
         this.ninjaService = ninjaService;
     }
-    //Criando CRUD
-    //Procurar um ninja por ID (READ)
+
     @GetMapping("/listar/{id}")
-    public NinjaDTO listarNinjasPorId(@PathVariable Long id){ //@PathVariable O que o usuários colocar na url, entrará no metodo.
-        return ninjaService.listarNinjasId(id);
+    public ResponseEntity<?> listarNinjasPorId(@PathVariable Long id){ //@PathVariable O que o usuários colocar na url, entrará no metodo.
+        NinjaDTO ninja = ninjaService.listarNinjasId(id);
+        if (ninja != null){
+            return ResponseEntity.ok(ninja);
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).
+                        body("Ninja com o id " + id + " não existe nos nossos registros!");
+        }
     }
 
-    //Mostrar todos os ninjas (READ)
     @GetMapping("/listar")
-    public List<NinjaDTO> listarNinjas(){
-        return ninjaService.listarNinjas();
+    public ResponseEntity<List<NinjaDTO>> listarNinjas(){
+        List<NinjaDTO> ninjas = ninjaService.listarNinjas();
+        return ResponseEntity.ok(ninjas);
     }
 
-    //Adicionar Ninja (CREATE)
     @PostMapping("/criar")
-    public NinjaDTO criarNinja(@RequestBody NinjaDTO ninja){ //@RequestBody - O usuário tem que mandar um JSON, pra depois ocorrer a serialização inversa.
-        return ninjaService.criarNinja(ninja);
+    public ResponseEntity<String> criarNinja(@RequestBody NinjaDTO ninja){ //@RequestBody - O usuário tem que mandar um JSON, pra depois ocorrer a serialização inversa.
+        NinjaDTO novoNinja = ninjaService.criarNinja(ninja);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body("Ninja Criado com Sucesso!: " + novoNinja.getNome() + ", ID: " + novoNinja.getId());
     }
 
-    //Alterar dados dos ninjas (UPDATE)
     @PutMapping("/alterar/{id}")
-    public NinjaDTO alterarNinjaPorId(@PathVariable Long id, @RequestBody NinjaDTO ninjaAtualizado){
-        return ninjaService.atualizarNinja(id, ninjaAtualizado);
+    public ResponseEntity alterarNinjaPorId(@PathVariable Long id, @RequestBody NinjaDTO ninjaAtualizado){
+        if (ninjaService.listarNinjasId(id) != null){
+            ninjaService.atualizarNinja(id, ninjaAtualizado);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body("Ninja com id: " + id + ", alterado com sucesso!");
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("O ninja com id " + id + " não foi encontrado!");
+        }
+
     }
 
-    //Deletar ninjas (DELETE)
     @DeleteMapping("/deletar/{id}")
-    public void deletarNinjaPorId(@PathVariable Long id){
-        ninjaService.deletarNinjaId(id);
+    public ResponseEntity<String> deletarNinjaPorId(@PathVariable Long id){
+        if (ninjaService.listarNinjasId(id) != null){
+            ninjaService.deletarNinjaId(id);
+            return ResponseEntity.ok("Ninja com id: " + id + ", deletado com sucesso!");
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("O ninja com id " + id + " não foi encontrado!");
+        }
+
     }
 }
