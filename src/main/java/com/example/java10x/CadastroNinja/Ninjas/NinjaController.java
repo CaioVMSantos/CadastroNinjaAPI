@@ -42,7 +42,7 @@ public class NinjaController {
     }
 
     @PutMapping("/alterar/{id}")
-    public ResponseEntity alterarNinjaPorId(@PathVariable Long id, @RequestBody NinjaDTO ninjaAtualizado){
+    public ResponseEntity<String> alterarNinjaPorId(@PathVariable Long id, @RequestBody NinjaDTO ninjaAtualizado){
         if (ninjaService.listarNinjasId(id) != null){
             ninjaService.atualizarNinja(id, ninjaAtualizado);
             return ResponseEntity.status(HttpStatus.OK)
