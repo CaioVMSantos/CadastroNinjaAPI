@@ -24,7 +24,7 @@ public class NinjaController {
             return ResponseEntity.ok(ninja);
         }else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).
-                        body("Ninja com o id " + id + " não existe nos nossos registros!");
+                        body("Ninja com o id " + id + " não existe em nossos registros!");
         }
     }
 
